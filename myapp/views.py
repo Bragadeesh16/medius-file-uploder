@@ -10,10 +10,12 @@ def summary(file_name,type):
     type = type.lower()
     if type == 'csv':
         df = pd.read_csv(file_name)
-        summary = df.groupby(['Cust State', 'DPD']).size().reset_index(name='Count')
+        summary_df = df.groupby(['Cust State', 'DPD']).size().reset_index(name='Count')
+        summary = summary_df.to_html(classes='table table-striped', index=False)
     elif type == 'xlsx':
         df = pd.read_excel(file_name)
-        summary = df.groupby(['Cust State', 'DPD']).size().reset_index(name='Count')
+        summary_df = df.groupby(['Cust State', 'DPD']).size().reset_index(name='Count')
+        summary = summary_df.to_html(classes='table table-striped', index=False)
     else:
         summary = 'please do uplode only of extension support csv or excel file'
 
@@ -28,7 +30,7 @@ def home(request):
             file_name = request.FILES['file']
             data_type = str(file_name).split('.')
             datas  = summary(file_name,data_type[-1])
-            datas = datas.to_string(index=False)
+            # datas = datas.to_string(index=False)
             send_mail(
                 'Summary Report',
                 datas,
