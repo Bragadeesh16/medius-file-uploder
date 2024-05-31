@@ -33,7 +33,7 @@ def home(request):
                 'Summary Report',
                 datas,
                 'bragadeesh03294@gmail.com',
-                ['tech@themedius.ai', 'CC HR@themedius.ai'],)
+                ['tech@themedius.ai', 'HR@themedius.ai'],)
             return render(request, 'summary.html',{'summary':datas})
     else:
         form = file_form()
